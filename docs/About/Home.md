@@ -6,10 +6,11 @@ HandsFree 是一个面向机器人研究、开发的开源软硬件系统。她�
 
 ### HandsFree 2017   
 
-<iframe frameborder="0" width="640" height="498" src="https://v.qq.com/iframe/player.html?vid=w0389v55en2&tiny=0&auto=0" allowfullscreen></iframe>
+<iframe frameborder="0" width="720" height="498" src="https://v.qq.com/iframe/player.html?vid=w0389v55en2&tiny=0&auto=0" allowfullscreen></iframe>
 
 ### 社区建设
 * [HandsFree Github](https://github.com/HANDS-FREE)   
+* [HandsFree Website](http://www.handsfree.org.cn/)   
 * [HandsFree Website](http://www.handsfree.org.cn/)    
 * 社区交流群: 521037187 (Hands Free Community)    
 * 联系邮箱： hands_free@126.com    

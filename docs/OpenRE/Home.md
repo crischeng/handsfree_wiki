@@ -29,7 +29,7 @@ OpenRE库还移植了PX4的bootloader，增加了硬件抽象层以适用于不�
 ## OpenRE环境配置
 ### OpenRE  Toolchain   
 关于工具链的配置有两种方式，可以直接用apt-get 安装，如果网速太慢也可以在百度云下载deb包安装。
-#### Method1: (recommended)
+#### Method1: 
 ```
 sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded  
 sudo apt-get update          
@@ -38,14 +38,27 @@ sudo usermod -a -G dialout $USER
 sudo apt-get install lib32ncurses5 libtool libusb-1.0 libftdi-dev python python-serial python-empy libpython2.7:i386    
 sudo apt-get remove modemmanager    
 ```
-#### Method2:
+#### Method2:(recommended)
 - get toolchain it in [Development_Toolchain](https://pan.baidu.com/s/1nuSvs7Z#list/path=%2FHANDSFREE%2FHands_Free_Release%2F3_Software%2FEmbedded_Development_Toolchain&parentPath=%2FHANDSFREE)
 - put these softwares in OpenRE/5_Development_Toolchain     
+- open a terminal and run:     
+
 ```
-- open a terminal and run: sh install.sh    
-- sudo usermod -a -G dialout $USER      
-- sudo apt-get install lib32ncurses5 libtool libusb-1.0 libftdi-dev python python-serial python-empy libpython2.7:i386     
-- sudo apt-get remove modemmanager    
+ cd 5_Development_Toolchain 
+ tar -jxvf gcc-arm-none-eabi-5_4-2016q2.tar.bz2
+ tar -jxvf openocd.tar.bz2
+ tar -jxvf stlink.tar.bz2
+ cd openocd/
+ ./configure
+ make clean
+ make
+ cd ../stlink/
+ make clean
+ make
+ cd ../
+ sudo usermod -a -G dialout $USER   
+ sudo apt-get install lib32ncurses5 libtool libusb-1.0 libftdi-dev python python-serial python-empy libpython2.7:i386  
+ sudo apt-get remove modemmanager    
 ```
 
 ### 代码编译与烧写

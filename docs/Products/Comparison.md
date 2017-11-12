@@ -59,7 +59,9 @@
 
 下面简要介绍一下机器人,Turtlebot现存的机器人有第二代和第三代的机器人,这两代机器人差别比较大.   
 1,[Turtlebot2](http://www.turtlebot.com/turtlebot2/)是一个系列,大部分都是由Kobuki移动底盘,华硕的Xtion深度摄像头/kinect深度摄像头,一个可以上网的笔记本,还有放置笔记本和kinect的各种结构,机器人.机器人主要的部分就是kobuki移动底盘,摄像头和可联网的PC.但是第二代机器人的移动底盘是封装好了的,内部机械及软件均是不开源的,只留下了更新固件接口及其他一些接口.因为不开源我们无法对其进行更多的分析,但不可否认的是,这个移动底盘确实比较稳定和准确.效果如图:
+
 ![Turtlebot2](/images/Products/turtlebot2.png)
+
 2,[Turtlebot3](http://turtlebot3.robotis.com/en/latest/)也是一个系列,现在主要的两款是Burger和Waffle.主要由树莓派,一块Arduino板,还有雷达组成.有人尝试在上面加装深度摄像头和机械臂,但是感觉也只是装饰,由于高度的限制,只有雷达能够发挥出全部的作用.第三代机器人和第二代机器人来比较的话,变化非常大.(1)更加地低成本,选取的硬件都很low,有点面向高中生的意思,在上面计算怕是不行.(2),全部开源,第三代机器人的硬件软件全部是开源的,不像第二代,移动底盘是一个集成好了的产品.效果如图:
 
 ![Turtlebot3](/images/Products/turtlebot3.png)
@@ -122,8 +124,7 @@ Turtlebot3使用的是基于STM32F7开发的Arduino开发板,MCU不错,板子上
 ### 2.2.2 说明分析
 
 * Turtlebot2的底盘控制器可能比我们的要好,已知的只有防撞传感器,红外传感器,防跌落传感器,110度/s单轴陀螺仪.   
-* HANDSFREE控制器，板载资源十分丰富，下料十足，可满足常见形态机器人研究需求，同时不惜成本，尽量选择稳定可靠的接口和IC，光是一个ADC基准电压的芯片就十几块钱，MOLEX接口也是选用昂贵的自锁接口，这主要是因为HANDSFREE团队本身也是使用这款控制器进行研究开发的，所以在很多细节方面考虑也是为了满足自己需求。   
-同时HANDSFREE团队为该控制器开发了OpenRE嵌入式机器人库，用户可以方便的在此库的基础上进行应用程序构建。而且OpenRE是还可以完全支持在linux环境下开发，这大大方便了ROS开发者和不懂嵌入式的机器人开发者。   
+* HANDSFREE控制器，板载资源十分丰富，下料十足，可满足常见形态机器人研究需求，同时不惜成本，尽量选择稳定可靠的接口和IC，光是一个ADC基准电压的芯片就十几块钱，MOLEX接口也是选用昂贵的自锁接口，这主要是因为HANDSFREE团队本身也是使用这款控制器进行研究开发的，所以在很多细节方面考虑也是为了满足自己需求。同时HANDSFREE团队为该控制器开发了OpenRE嵌入式机器人库，用户可以方便的在此库的基础上进行应用程序构建。而且OpenRE是还可以完全支持在linux环境下开发，这大大方便了ROS开发者和不懂嵌入式的机器人开发者。   
 * Turtlebot3的MCU比较高端,但是开发板上的资源倒是有限,感觉有点浪费了.   
 
 **总结**:Turtlebot3板载资源只能跟Mini稍微比较一下,和HandsFree第二代上的板载资源完全没有比较性.Kobuki底盘控制器参数未知,程序也不是开源的,无法进行比较,只能说可能有一定优势.
@@ -134,7 +135,7 @@ Turtlebot3使用的是基于STM32F7开发的Arduino开发板,MCU不错,板子上
 
 [Hands Free Power Manager V2.0](http://wiki.handsfree.org.cn/docs/Hardware/Power-Manager.html) 是 Hands Free Team 根据 Hands Free 开源项目的硬件标准设计的一款电源分配板，附带多路开关和多种电源转换功能，满足机器人多样的电力需求。 支持常用的 TX1， TK1， MiniPC，树莓派， Kinect ，HOKUYOU 雷达等设备供电，同时还支持机器人的电机驱动， 云台舵机，机械臂等结构的供电，还自带一个急停开关接口和一路急停电源输出。 配合大容量电池可以为机器提供集成供电方案。
 
-![Power](/images/Products/Power.png)
+![Power](/images/Products/power.png)
 
 Turtlebot2移动底盘有对外的接口,内置电池,Turtlebot3也设置了对外接口.   
 下面是二者的对比:   

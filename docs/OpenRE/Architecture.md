@@ -1,5 +1,6 @@
-## 第四章 架构介绍
-### Makefile详解
+## 架构介绍
+
+## Makefile详解
 每个工程都有一个自己的makefile文件（已经在上文讲解过），并且都include了顶层目录下的compiler_config.mk，而compiler_config.mk文件又包含了其它的.mk文件。
 
 这里主要介绍以下几个重要的.mk文件，看懂这几个文件，自己DIY就完全不是问题。
@@ -92,5 +93,5 @@
 
  就是对makefile的PAKG变量进行解析，只要是依赖的包，就包含其源文件和路径。
 
-###  基于OpenRE和HandsFree主控编写机器人程序
+##  基于OpenRE和HandsFree主控编写机器人程序
 

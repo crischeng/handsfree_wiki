@@ -1,7 +1,10 @@
 ## HFLink详解
 该功能包包含了两个类：StateMachine类和HFLink类。
 
-StateMachine类中定义了一个HFMessage结构体，该结构体描述了一个数据包的信息：包括发送者id、接受者id、有用数据长度和数据内容存放数组（容量最大为120字节）。
+* 通信协议：
+
+ 0XFF 0xFF sender_id receiver_id length_H length_L ****（data） check_sum
+ StateMachine类中定义了一个HFMessage结构体，该结构体描述了一个数据包的信息：前两个0xFF是包头，后面是发送者id、接受者id、有用数据长度和数据内容存放数组（容量最大为120字节），最后一位则是校验位，使用的是和校验，check_sum= (0XFF + 0XFF+......)%255。
 
 StateMachine类最重要的是状态机接收函数*StateMachine::receiveStates*和*StateMachine::sendMessage*函数。
 
@@ -30,7 +33,7 @@ HFLink类继承了StateMachine类，为了使用StateMachine类中的状态机�
 
  接下来开始正常通信。
 
- 首先，根据状态机中获得的数据包的第一位数据确定指令的类型：
+ 首先，根据状态机中获得的数据包的第一位数据确定指令的类型，指令的类型定义在一个枚举体中：
 >command_state_ = (Command)rx_message.data[0];
 
  接着利用switch语句，针对不同的指令类型调用不同的数据处理函数。
@@ -46,7 +49,7 @@ HFLink类继承了StateMachine类，为了使用StateMachine类中的状态机�
 
 * HFLink::sendStruct(const Command command_type , unsigned char* p ,  unsigned short intlen)：
 
- 消息发送函数。传入参数包括：指令类别、指向发送内容首地址的指针和发送数据的长度。函数内部主要是填充了HFMessage类型数据的相关信息。
+ 消息发送函数。传入参数包括：指令类别、指向发送内容首地址的指针和发送数据的长度。函数内部主要是填充了HFMessage类型数据的相关信息，但是要注意，每条指令都有自己的有效周期，也就是说，要以一定的频率给机器人发送指令。
 
 ## 如何自定义通信指令
 首先，明确自定义通信指令的作用，涉及到的数据，并且根据通信指令的作用给自己的这条通信指令起个名字。
@@ -54,3 +57,12 @@ HFLink类继承了StateMachine类，为了使用StateMachine类中的状态机�
 接着，在hf_link.h中，将该通信指令的名称添加到LAST_COMMAND_FLAG之前。
 
 之后，在hf_link.cpp文件中找到HFLink::packageAnalysis(void)函数，在switch函数里面，仿照之前通信的格式添加新的通信指令解析内容。对于上下位机来讲，都是调用两个函数，setCommandAnalysis和readCommandAnalysis，这两个函数传入的参数都是三个，第一个指令类型，这个不需要自己改，因为是从更外面的函数传进来的，第二个是指向本条通信所涉及到的数据的指针，也就是相关数据的首地址，第三个是数据长度，用sizeof函数就好。如果本条指令不涉及到参数的传递（只是单纯的动作执行指令），就使用NULL指针，数据长度为0。
+
+##多机支持
+所有通信节点都有一个自己的ID，这也是为多机提供基础。多机很直观，就是多个机器人，多个控制终端之间的互相通信，通过ID号来一一对应。
+ID其实就是一个单字节的数据，不过RoboLink有规定，主机和从机的ID范围是不一样的，这也是为了统一编排ID，提升效率。
+主机（终端）概念：给实体机械人发送指令的的终端如遥控器，PC ，手机PP应用等 ，ID范围为0X01 - 0X10共15个ID。
+从机概念：一个实体机器人（被控体）即为一个从机，比如移动机器人，平衡车，四轴 ，ID范围为 0X11 - 0X40  共48个ID。
+广播ID：0XFF。
+
+
